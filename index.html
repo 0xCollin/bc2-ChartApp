@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>chartapp</title>
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/material.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery.flot.js"></script>
+  <script src="js/jquery.flot.categories.js"></script>
+  <script src="js/material.min.js"></script>
+  <script src="js/index.js"></script>
+</head>
+<body>
+<!-- Always shows a header, even in smaller screens. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">CHARTAPP</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+      <nav class="mdl-navigation mdl-layout--large-screen-only">
+        <a class="mdl-navigation__link" href="">BAR CHART</a>
+        <a class="mdl-navigation__link" href="">PIE CHART</a>
+        <a class="mdl-navigation__link" href="">LINE CHART</a>
+        <a class="mdl-navigation__link" href="">HISTOGRAM</a>
+      </nav>
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" id="add">
+        <i class="material-icons" role="presentation">add</i>
+        <span class="visuallyhidden">Add</span>
+      </button>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">OPTIONS</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="">BAR CHART</a>
+      <a class="mdl-navigation__link" href="">PIE CHART</a>
+      <a class="mdl-navigation__link" href="">LINE CHART</a>
+      <a class="mdl-navigation__link" href="">HISTOGRAM</a>
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
+    <div class="page-content">
+      <div id="chart1" class="placeholder"></div>
+      <div id="chart"></div>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
