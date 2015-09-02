@@ -1,0 +1,274 @@
+[
+  {
+    "id": 1,
+    "name": "Jenny Wilkinson",
+    "gender": "female",
+    "score": 83,
+    "email": "jennywilkinson@andela.co",
+    "phone": "+2548685672920",
+    "regno": "ANDL-542/411-2450",
+    "units": [
+      "fugiat",
+      "amet",
+      "mollit",
+      "occaecat",
+      "magna"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Osborne Valencia",
+    "gender": "male",
+    "score": 54,
+    "email": "osbornevalencia@andela.co",
+    "phone": "+2549085662723",
+    "regno": "ANDL-542/470-2290",
+    "units": [
+      "occaecat",
+      "non",
+      "do",
+      "adipisicing",
+      "magna"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Franks Castaneda",
+    "gender": "male",
+    "score": 49,
+    "email": "frankscastaneda@andela.co",
+    "phone": "+2549045293707",
+    "regno": "ANDL-542/523-3429",
+    "units": [
+      "reprehenderit",
+      "aute",
+      "commodo",
+      "nulla",
+      "velit"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Kate Travis",
+    "gender": "female",
+    "score": 35,
+    "email": "katetravis@andela.co",
+    "phone": "+2548945042232",
+    "regno": "ANDL-542/585-2449",
+    "units": [
+      "qui",
+      "cupidatat",
+      "aliqua",
+      "deserunt",
+      "ullamco"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Darcy Wyatt",
+    "gender": "female",
+    "score": 90,
+    "email": "darcywyatt@andela.co",
+    "phone": "+2549484912632",
+    "regno": "ANDL-542/5443774",
+    "units": [
+      "duis",
+      "qui",
+      "adipisicing",
+      "consectetur",
+      "velit"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Lopez Rocha",
+    "gender": "male",
+    "score": 42,
+    "email": "lopezrocha@andela.co",
+    "phone": "+2549515162322",
+    "regno": "ANDL-542/599-3517",
+    "units": [
+      "laborum",
+      "nulla",
+      "nisi",
+      "ipsum",
+      "esse"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Richardson Chan",
+    "gender": "male",
+    "score": 64,
+    "email": "richardsonchan@andela.co",
+    "phone": "+2549775883925",
+    "regno": "ANDL-542/438-2796",
+    "units": [
+      "sint",
+      "non",
+      "ullamco",
+      "irure",
+      "pariatur"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Roth Calderon",
+    "gender": "male",
+    "score": 25,
+    "email": "rothcalderon@andela.co",
+    "phone": "+2549285123228",
+    "regno": "ANDL-542/478-2242",
+    "units": [
+      "nulla",
+      "et",
+      "cillum",
+      "eiusmod",
+      "duis"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Jaime Flores",
+    "gender": "female",
+    "score": 28,
+    "email": "jaimeflores@andela.co",
+    "phone": "+2549845113353",
+    "regno": "ANDL-542/545-2157",
+    "units": [
+      "aute",
+      "enim",
+      "deserunt",
+      "pariatur",
+      "laboris"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Evangeline Holden",
+    "gender": "female",
+    "score": 51,
+    "email": "evangelineholden@andela.co",
+    "phone": "+2549244163155",
+    "regno": "ANDL-542/537-3906",
+    "units": [
+      "reprehenderit",
+      "laboris",
+      "mollit",
+      "occaecat",
+      "laboris"
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Hughes Fisher",
+    "gender": "male",
+    "score": 51,
+    "email": "hughesfisher@andela.co",
+    "phone": "+254856584-2108",
+    "regno": "ANDL-542/545-3331",
+    "units": [
+      "aliqua",
+      "sint",
+      "ipsum",
+      "cupidatat",
+      "dolor"
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Mccall Bartlett",
+    "gender": "male",
+    "score": 11,
+    "email": "mccallbartlett@andela.co",
+    "phone": "+2548124232436",
+    "regno": "ANDL-542/559-3301",
+    "units": [
+      "laboris",
+      "magna",
+      "ullamco",
+      "fugiat",
+      "non"
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Richards Clayton",
+    "gender": "male",
+    "score": 32,
+    "email": "richardsclayton@andela.co",
+    "phone": "+2549534303851",
+    "regno": "ANDL-542/411-3480",
+    "units": [
+      "laboris",
+      "elit",
+      "exercitation",
+      "duis",
+      "qui"
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Rogers Richard",
+    "gender": "male",
+    "score": 1,
+    "email": "rogersrichard@andela.co",
+    "phone": "+2549205752023",
+    "regno": "ANDL-542/533-2507",
+    "units": [
+      "esse",
+      "exercitation",
+      "sint",
+      "laboris",
+      "consectetur"
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Kelley Carver",
+    "gender": "male",
+    "score": 64,
+    "email": "kelleycarver@andela.co",
+    "phone": "+2549454663166",
+    "regno": "ANDL-542/435-2491",
+    "units": [
+      "do",
+      "proident",
+      "occaecat",
+      "nostrud",
+      "quis"
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Aileen Hyde",
+    "gender": "female",
+    "score": 35,
+    "email": "aileenhyde@andela.co",
+    "phone": "+2549084913104",
+    "regno": "ANDL-542/457-3171",
+    "units": [
+      "ad",
+      "aliquip",
+      "culpa",
+      "consequat",
+      "mollit"
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Janice Kelly",
+    "gender": "female",
+    "score": 66,
+    "email": "janicekelly@andela.co",
+    "phone": "+2549444163574",
+    "regno": "ANDL-542/479-2000",
+    "units": [
+      "laboris",
+      "est",
+      "ea",
+      "exercitation",
+      "reprehenderit"
+    ]
+  }
+]
