@@ -12,6 +12,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table.min.js"></script>
   <script src="scripts/index.js"></script>
+  <!-- <script src="scripts/piechart.js"></script> -->
 </head>
 <body>
   <nav class="navbar navbar-default">
@@ -35,23 +36,28 @@
       <br>
       <div class="response"></div>
       <button id="fetchbtn" class="btn btn-success">Fetch data</button>
+      <button id="resetbtn" class="btn btn-success">Reset data</button>
       <div class="response-data"></div>
       <br>
     </div>
     <div class="col-md-6 col-sm-offset-3">
       <table id="data-table" class="table-responsive"></table>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-offset-2">
       <h5>Bar chart</h5>
       <canvas id="barchartCanvas"></canvas>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-offset-1">
       <h5>Line chart</h5>
       <canvas id="linechartCanvas"></canvas>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 col-sm-offset-2">
       <h5>Pie chart</h5>
       <canvas id="piechartCanvas"></canvas>
+    </div>
+    <div class="col-md-4 col-sm-offset-1">
+      <h5>Histogram</h5>
+      <canvas id="histogramCanvas"></canvas>
     </div>
   </div>
 </body>
