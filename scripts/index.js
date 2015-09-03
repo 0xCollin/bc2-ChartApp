@@ -5,7 +5,6 @@ var config = {
 };
 var xPadding = 30;
 var yPadding = 30;
-
 var piedata = [{
   label: "80 - 100",
   value: 0,
@@ -37,14 +36,14 @@ var fetchFail = '<div class="alert alert-danger alert-dismissible" role="alert">
                 +'</div>';
 
 $(document).ready(function() {
-
+	//get the canvas elements
   var canvas1 = document.getElementById('barchartCanvas');
   var canvas2 = document.getElementById('linechartCanvas');
-  var canvas3 = document.getElementById('histogramCanvas')
-
+  var canvas3 = document.getElementById('histogramCanvas');
+	//listen to click events on button
   $('#fetchbtn').click(function(event) {
     jsonUrl = $('input[name=jsonURL]').val();
-
+		//initiate ajax request to obtain json
     $.ajax({
       type: "GET",
       dataType: "json",
@@ -55,66 +54,67 @@ $(document).ready(function() {
       }
     }).done(function(data) {
       $('.response').append(fetchSuccess);
-      $('#fetchbtn').text("Reset data");
+			$('#fetchbtn').css("display", "none");
+      $('#resetbtn').css("display", "block");
       $('.col-md-4 h5').css("display", "block");
-      $('.col-md-6 h5').css("display", "block");
+      $('#resetbtn').click(function() {
+				location.reload(true);
+			});
+			//push items from the json object to the config object
       for (var i = 0; i < data.length; i++) {
         config.values.push(data[i].score);
       }
-
+			//draw bargraph using values in config object
       barGraph.draw(config.values);
-
+			//function to obtain the largest item from values
       function getMax() {
         var max = Math.max.apply(null, config.values);
         max += 10 - max % 10;
         return max;
         console.log(max);
       };
-
+			//function to obtain the x point for a line chart
       function getXPixel(val) {
           return ((canvas2.width - xPadding) / config.values.length) * val + (xPadding * 1.5);
       }
-
+			//function to obtain the x point for a line chart
       function getYPixel(val) {
           return canvas2.height - (((canvas2.height - yPadding) / getMax()) * val) - yPadding;
       }
-
+			//draw the axes on the line chart canvas
       c.beginPath();
       c.moveTo(xPadding, 0);
       c.lineTo(xPadding, canvas2.height - yPadding);
       c.lineTo(canvas2.width, canvas2.height - yPadding);
       c.stroke();
-
+			//draw the values on x axis
       for(var i = 0; i < config.values.length; i += 1) {
           c.fillText(i + 1, getXPixel(i), canvas2.height - yPadding + 20);
       }
-
+			//draw the values on y axis
       c.textAlign = "right"
       c.textBaseline = "middle";
-
       for(var i = 0; i < getMax(); i += 10) {
           c.fillText(i, xPadding - 10, getYPixel(i));
       }
-
       c.strokeStyle = '#000';
-
+			//draw the line chart on canvas
       c.beginPath();
       c.moveTo(getXPixel(0), getYPixel(config.values[0]));
       for(var i = 1; i < config.values.length; i ++) {
           c.lineTo(getXPixel(i), getYPixel(config.values[i]));
       }
       c.stroke();
-
-      c.fillStyle = '#333';
-
+			//draw the points on the line chart
+			c.fillStyle = '#333';
       for(var i = 0; i < config.values.length; i ++) {
           c.beginPath();
           c.arc(getXPixel(i), getYPixel(config.values[i]), 4, 0, Math.PI * 2, true);
           c.fill();
       }
-
+			//arrays to hold values according to category
       var a = [], b = [], d = [], e = [];
-
+			//divide the values into categories
       for (var i = 0; i < config.values.length; i++) {
         if(config.values[i] > 80 && config.values[i] < 100) {
           a.push(config.values[i]);
@@ -131,10 +131,15 @@ $(document).ready(function() {
         }
       }
 
-      new PieChart("piechartCanvas", piedata);
-      histogram.draw(config.values);
-});
+			//draw pie chart
+			new PieChart("piechartCanvas", piedata);
 
+			//set value categories for histogram and draw it
+			var histValues = [(a.length/config.values.length)*100, (b.length/config.values.length)*100, (d.length/config.values.length)*100, (e.length/config.values.length)*100];
+      histogram.draw(histValues);
+
+});
+		//display data from json in table
     $('#data-table').bootstrapTable({
       url: jsonUrl,
       pagination: true,
@@ -153,14 +158,19 @@ $(document).ready(function() {
         title: 'Marks scored'
       }, ]
     });
-
+		//initialize bargraph and histogram
     var barGraph = new BarGraph(canvas1);
     var histogram = new BarGraph(canvas3);
+		//set label for the x axis for bargraph and histogram
+    barGraph.xLabels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+    histogram.xLabels = [];
 
-
-    barGraph.xLabels = ['1', '2', '3', '4', '5'];
-    histogram.xLabels = ['1', '2', '3', '4', '5'];
-
+		for (var i = 0; i < piedata.length; i++) {
+			histogram.xLabels.push(piedata[i].label);
+		}
+		//histogram doesn't have margin
+		histogram.margin = 0;
+		//function to instatiate charts
     function Graph(canvas) {
       this.ctx = canvas.getContext('2d');
       this.width = canvas.width;
@@ -173,14 +183,14 @@ $(document).ready(function() {
         this.graphAreaHeight = this.height;
       }
     }
-
+		//prototype for bargraph
     BarGraph.prototype = new Graph();
 
     function BarGraph(canvas) {
       Graph.call(this, canvas);
       this.margin = 5;
       this.border = 1;
-
+			//function to draw bargraph
       BarGraph.prototype.draw = function(values) {
         this.values = values;
         this.clearCanvas();
@@ -195,13 +205,13 @@ $(document).ready(function() {
         barWidth = this.width / numOfBars - this.margin * 2;
         maxBarHeight = this.graphAreaHeight - 25;
 
-        for(var i = 0; i < this.values.length; i++){
+        for(var i = 0; i < this.values.length; i++) {
           if(this.values[i] > maxVal){
             maxVal = this.values[i];
           }
         }
 
-        for(var i = 0; i < this.values.length; i++){
+        for(var i = 0; i < this.values.length; i++) {
           if(this.maxYval){
             ratio = this.values[i] / this.maxYval;
           }else{
@@ -245,9 +255,10 @@ $(document).ready(function() {
 
 
   });
-
+	//set context for linegraph and histogram
   var c = canvas2.getContext('2d');
-
+	var h = canvas3.getContext('2d');
+	//configure the linegraph context
   c.lineWidth = 2;
   c.strokeStyle = '#333';
   c.font = 'italic 8pt sans-serif';
@@ -255,7 +266,6 @@ $(document).ready(function() {
 
   /*
   *Pie chart constructor
-  *
   */
   function PieChart(canvasId, data) {
     //User defined Properties
@@ -330,7 +340,6 @@ $(document).ready(function() {
 
   /*
   *Draws the slices for the pie chart
-  *
   */
   PieChart.prototype.drawSlices = function() {
     var context = this.context;
@@ -358,7 +367,6 @@ $(document).ready(function() {
   /*
   *Gets the total value of the labels by looping through
   *the data and adding up each value
-  *
   */
   PieChart.prototype.getTotalValue =  function() {
     var data = this.data;

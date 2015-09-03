@@ -78,5 +78,85 @@
       "consectetur",
       "velit"
     ]
+  },
+  {
+    "id": 6,
+    "name": "Lopez Rocha",
+    "gender": "male",
+    "score": 42,
+    "email": "lopezrocha@andela.co",
+    "phone": "+2549515162322",
+    "regno": "ANDL-542/599-3517",
+    "units": [
+      "laborum",
+      "nulla",
+      "nisi",
+      "ipsum",
+      "esse"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Richardson Chan",
+    "gender": "male",
+    "score": 64,
+    "email": "richardsonchan@andela.co",
+    "phone": "+2549775883925",
+    "regno": "ANDL-542/438-2796",
+    "units": [
+      "sint",
+      "non",
+      "ullamco",
+      "irure",
+      "pariatur"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Roth Calderon",
+    "gender": "male",
+    "score": 25,
+    "email": "rothcalderon@andela.co",
+    "phone": "+2549285123228",
+    "regno": "ANDL-542/478-2242",
+    "units": [
+      "nulla",
+      "et",
+      "cillum",
+      "eiusmod",
+      "duis"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Jaime Flores",
+    "gender": "female",
+    "score": 28,
+    "email": "jaimeflores@andela.co",
+    "phone": "+2549845113353",
+    "regno": "ANDL-542/545-2157",
+    "units": [
+      "aute",
+      "enim",
+      "deserunt",
+      "pariatur",
+      "laboris"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Evangeline Holden",
+    "gender": "female",
+    "score": 51,
+    "email": "evangelineholden@andela.co",
+    "phone": "+2549244163155",
+    "regno": "ANDL-542/537-3906",
+    "units": [
+      "reprehenderit",
+      "laboris",
+      "mollit",
+      "occaecat",
+      "laboris"
+    ]
   }
 ]
