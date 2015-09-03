@@ -9,7 +9,7 @@ var yPadding = 30;
 var piedata = [{
   label: "80 - 100",
   value: 0,
-  color: "red"
+  color: "black"
 }, {
   label: "60 - 80",
   value: 0,
@@ -40,6 +40,7 @@ $(document).ready(function() {
 
   var canvas1 = document.getElementById('barchartCanvas');
   var canvas2 = document.getElementById('linechartCanvas');
+  var canvas3 = document.getElementById('histogramCanvas')
 
   $('#fetchbtn').click(function(event) {
     jsonUrl = $('input[name=jsonURL]').val();
@@ -56,6 +57,7 @@ $(document).ready(function() {
       $('.response').append(fetchSuccess);
       $('#fetchbtn').text("Reset data");
       $('.col-md-4 h5').css("display", "block");
+      $('.col-md-6 h5').css("display", "block");
       for (var i = 0; i < data.length; i++) {
         config.values.push(data[i].score);
       }
@@ -130,6 +132,7 @@ $(document).ready(function() {
       }
 
       new PieChart("piechartCanvas", piedata);
+      histogram.draw(config.values);
 });
 
     $('#data-table').bootstrapTable({
@@ -152,7 +155,11 @@ $(document).ready(function() {
     });
 
     var barGraph = new BarGraph(canvas1);
+    var histogram = new BarGraph(canvas3);
+
+
     barGraph.xLabels = ['1', '2', '3', '4', '5'];
+    histogram.xLabels = ['1', '2', '3', '4', '5'];
 
     function Graph(canvas) {
       this.ctx = canvas.getContext('2d');
