@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Jenny Wilkinson",
+    "gender": "female",
+    "score": 83,
+    "email": "jennywilkinson@andela.co",
+    "phone": "+2548685672920",
+    "regno": "ANDL-542/411-2450",
+    "units": [
+      "fugiat",
+      "amet",
+      "mollit",
+      "occaecat",
+      "magna"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Osborne Valencia",
+    "gender": "male",
+    "score": 54,
+    "email": "osbornevalencia@andela.co",
+    "phone": "+2549085662723",
+    "regno": "ANDL-542/470-2290",
+    "units": [
+      "occaecat",
+      "non",
+      "do",
+      "adipisicing",
+      "magna"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Franks Castaneda",
+    "gender": "male",
+    "score": 49,
+    "email": "frankscastaneda@andela.co",
+    "phone": "+2549045293707",
+    "regno": "ANDL-542/523-3429",
+    "units": [
+      "reprehenderit",
+      "aute",
+      "commodo",
+      "nulla",
+      "velit"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Kate Travis",
+    "gender": "female",
+    "score": 35,
+    "email": "katetravis@andela.co",
+    "phone": "+2548945042232",
+    "regno": "ANDL-542/585-2449",
+    "units": [
+      "qui",
+      "cupidatat",
+      "aliqua",
+      "deserunt",
+      "ullamco"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Darcy Wyatt",
+    "gender": "female",
+    "score": 90,
+    "email": "darcywyatt@andela.co",
+    "phone": "+2549484912632",
+    "regno": "ANDL-542/544-3774",
+    "units": [
+      "duis",
+      "qui",
+      "adipisicing",
+      "consectetur",
+      "velit"
+    ]
+  }
+]

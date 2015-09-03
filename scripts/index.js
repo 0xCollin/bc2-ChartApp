@@ -1,4 +1,10 @@
 var jsonUrl;
+var config = {
+	colour: '#000',
+	values: []
+};
+var xPadding = 30;
+var yPadding = 30;
 var fetchSuccess = '<div class="alert alert-success alert-dismissible" role="alert">'
                       +'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
                         +'<span aria-hidden="true">&times;</span>'
@@ -12,6 +18,10 @@ var fetchFail = '<div class="alert alert-danger alert-dismissible" role="alert">
                 +'</div>';
 
 $(document).ready(function() {
+
+  var canvas1 = document.getElementById('barchartCanvas');
+  var canvas2 = document.getElementById('linechartCanvas');
+
   $('#fetchbtn').click(function(event) {
     jsonUrl = $('input[name=jsonURL]').val();
 
@@ -20,13 +30,66 @@ $(document).ready(function() {
       dataType: "json",
       url: jsonUrl,
       timeout: 5000,
-      success: function(data) {
-        $('.response').append(fetchSuccess);
-        // $('#fetchurl').clear();
-        $('#fetchbtn').text("Reset data");
-      },
       error: function() {
         $('.response').append(fetchFail);
+      }
+    }).done(function(data) {
+      $('.response').append(fetchSuccess);
+      $('#fetchbtn').text("Reset data");
+      $('.col-md-4 h5').css("display", "block");
+      for (var i = 0; i < data.length; i++) {
+        config.values.push(data[i].score);
+      }
+
+      barGraph.draw(config.values);
+
+      function getMax() {
+        var max = Math.max.apply(null, config.values);
+        max += 10 - max % 10;
+        return max;
+        console.log(max);
+      };
+
+      function getXPixel(val) {
+          return ((canvas2.width - xPadding) / config.values.length) * val + (xPadding * 1.5);
+      }
+
+      function getYPixel(val) {
+          return canvas2.height - (((canvas2.height - yPadding) / getMax()) * val) - yPadding;
+      }
+
+      c.beginPath();
+      c.moveTo(xPadding, 0);
+      c.lineTo(xPadding, canvas2.height - yPadding);
+      c.lineTo(canvas2.width, canvas2.height - yPadding);
+      c.stroke();
+
+      for(var i = 0; i < config.values.length; i += 1) {
+          c.fillText(i + 1, getXPixel(i), canvas2.height - yPadding + 20);
+      }
+
+      c.textAlign = "right"
+      c.textBaseline = "middle";
+
+      for(var i = 0; i < getMax(); i += 10) {
+          c.fillText(i, xPadding - 10, getYPixel(i));
+      }
+
+      c.strokeStyle = '#000';
+
+      c.beginPath();
+      c.moveTo(getXPixel(0), getYPixel(config.values[0]));
+      for(var i = 1; i < config.values.length; i ++) {
+          c.lineTo(getXPixel(i), getYPixel(config.values[i]));
+      }
+      c.stroke();
+
+      c.fillStyle = '#333';
+
+      for(var i = 0; i < config.values.length; i ++) {
+          c.beginPath();
+          c.arc(getXPixel(i), getYPixel(data.values[i].Y), 4, 0, Math.PI * 2, true);
+          c.fill();
       }
     });
 
@@ -49,193 +112,99 @@ $(document).ready(function() {
       }, ]
     });
 
-    function Chart(width, height, dataSource) {
-    	this.setDataSource(dataSource);
-    	this.initialiseCanvas(width, height);
+    var barGraph = new BarGraph(canvas1);
+    barGraph.xLabels = ['1', '2', '3', '4', '5'];
+
+    function Graph(canvas) {
+      this.ctx = canvas.getContext('2d');
+      this.width = canvas.width;
+      this.height = canvas.height;
+      this.bgColor = '#fff';
+      this.font = 'bold 12px sans-serif';
+      this.fontColor = '#333333';
+      this.clearCanvas = function() {
+        this.ctx.clearRect(0, 0, this.width, this.height);
+        this.graphAreaHeight = this.height;
+      }
     }
 
-    Chart.prototype.initialiseCanvas = function (width, height) {
-    	this.canvas = document.getElementById("chartCanvas");
-    	this.context = this.canvas.getContext('2d');
-    	this.setSize(width, height);
-    };
+    BarGraph.prototype = new Graph();
 
-    Chart.prototype.setSize = function (width, height) {
-    	this.canvas.width = this.width = width;
-    	this.canvas.height = this.height = height;
-    };
+    function BarGraph(canvas) {
+      Graph.call(this, canvas);
+      this.margin = 5;
+      this.border = 1;
 
-    Chart.prototype.getCanvas = function () {
-    	return this.canvas;
-    };
+      BarGraph.prototype.draw = function(values) {
+        this.values = values;
+        this.clearCanvas();
+        var numOfBars = this.values.length, maxVal = 0, barWidth, barHeight, maxBarHeight, ratio, label;
+        this.ctx.fillStyle = this.bgColor;
+        this.ctx.fillRect(0, 0, this.width, this.graphAreaHeight);
 
+        if(this.xLabels.length){
+          this.graphAreaHeight -= 30;
+        }
 
-    Chart.prototype.setDataSource = function (dataSource) {
-    	this.dataSource = dataSource;
-    };
+        barWidth = this.width / numOfBars - this.margin * 2;
+        maxBarHeight = this.graphAreaHeight - 25;
 
-    Chart.prototype.renderChart = function () {
-    	this.clearCanvas();
-    	this.drawDataSourceOntoCanvas();
-    };
+        for(var i = 0; i < this.values.length; i++){
+          if(this.values[i] > maxVal){
+            maxVal = this.values[i];
+          }
+        }
 
-    Chart.prototype.clearCanvas = function () {
-    	this.context.clearRect(0, 0, this.width, this.height);
-    };
+        for(var i = 0; i < this.values.length; i++){
+          if(this.maxYval){
+            ratio = this.values[i] / this.maxYval;
+          }else{
+            ratio = this.values[i] / maxVal;
+          }
 
-    Chart.prototype.drawDataSourceOntoCanvas = function () {};
+          barHeight = ratio * maxBarHeight;
+          this.ctx.fillStyle = '#000';
+          this.ctx.fillRect(
+            this.margin + i * this.width / numOfBars,
+            this.graphAreaHeight - barHeight,
+            barWidth,
+            barHeight
+          );
+          this.ctx.fillStyle = this.fontColor;
+          this.ctx.font = this.font;
+          this.ctx.textAlign = 'center';
 
-    function LineChart() {
-    	Chart.apply(this, arguments);
+          this.ctx.beginPath();
+          this.ctx.moveTo(0, 0);
+          this.ctx.lineTo(0, this.height - 30);
+          this.ctx.lineTo(this.width, this.height - 30);
+          this.ctx.stroke();
+
+          this.ctx.fillText(
+            parseInt(this.values[i],10),
+            i * this.width / numOfBars + (this.width / numOfBars) / 2,
+            this.graphAreaHeight - barHeight - 10
+          );
+
+          if(this.xLabels[i]){
+            label = (this.xLabels[i].length > this.maxTextLength) ? this.xLabels[i].substring(0,this.maxTextLength) + ".." : this.xLabels[i];
+            this.ctx.fillStyle = this.fontColor;
+            this.ctx.font = this.font;
+            this.ctx.textAlign = 'center';
+            this.ctx.fillText(label, i * this.width / numOfBars + (this.width / numOfBars) / 2, this.height - 10);
+          }
+        }
+      }
     }
-
-    LineChart.prototype = Object.create(Chart.prototype);
-
-
-    LineChart.prototype.setDataSource = function (dataSource) {
-    	Chart.prototype.setDataSource.call(this, dataSource);
-    	this.values = this.getDataSourceItemValues();
-    	this.calculateDataSourceBounds();
-    };
-
-    LineChart.prototype.getDataSourceItemValues = function () {
-    	var dataSource = this.dataSource;
-    	var values = [];
-    	var key;
-
-    	for (key in dataSource) {
-    		if (dataSource.hasOwnProperty(key)) {
-    			values.push(dataSource[key].values);
-    		}
-    	}
-
-    	return values;
-    };
-
-    LineChart.prototype.calculateDataSourceBounds = function () {
-    	this.bounds = {
-    		x: this.getLargestDataSourceItemLength(),
-    		y: this.getLargestDataSourceItemValue()
-    	};
-    };
-
-    LineChart.prototype.getLargestDataSourceItemLength = function () {
-    	var values = this.values;
-    	var length = values.length;
-    	var max = 0;
-    	var currentLength;
-    	var i;
-
-    	for (i = 0; i < length; i++) {
-    		currentLength = values[i].length - 1; // Negative
-
-    		if (currentLength > max) {
-    			max = currentLength;
-    		}
-    	}
-
-    	return max;
-    };
-
-    LineChart.prototype.getLargestDataSourceItemValue = function () {
-    	var values = this.values;
-    	var length = values.length;
-    	var max = 0;
-    	var currentItem;
-    	var i;
-
-    	for (i = 0; i < length; i++) {
-    		currentItem = Math.max.apply(Math, values[i]);
-
-    		if (currentItem  > max) {
-    			max = currentItem;
-    		}
-    	}
-
-    	return max;
-    };
-
-
-    LineChart.prototype.drawDataSourceOntoCanvas = function () {
-    	var dataSource = this.dataSource;
-    	var currentItem;
-    	var key;
-
-    	for (key in dataSource) {
-    		if (dataSource.hasOwnProperty(key)) {
-    			currentItem = dataSource[key];
-    			this.plotValuesOntoCanvas(currentItem);
-    		}
-    	}
-    };
-
-    LineChart.prototype.plotValuesOntoCanvas = function (item) {
-    	var context = this.context;
-    	var points = item.values;
-    	var length = points.length;
-    	var currentPosition;
-    	var previousPosition;
-    	var i;
-
-    	var radius = 2;
-    	var startAngle = 0;
-    	var endAngle = Math.PI * 2;
-
-    	context.save();
-    	context.fillStyle = context.strokeStyle = item.colour;
-    	context.lineWidth = 2;
-
-    	for (i = 0; i < length; i++) {
-    		previousPosition = currentPosition;
-    		currentPosition = this.calculatePositionForValue(i, points[i]);
-
-    		context.beginPath();
-    		context.arc(currentPosition.x, currentPosition.y, radius, startAngle, endAngle, false);
-    		context.fill();
-
-    		if (previousPosition) {
-    			context.moveTo(previousPosition.x, previousPosition.y);
-    			context.lineTo(currentPosition.x, currentPosition.y);
-    			context.stroke();
-    		}
-    	}
-
-    	context.restore();
-    };
-
-
-    LineChart.prototype.calculatePositionForValue = function (column, value) {
-    	return {
-    		x: this.width / this.bounds.x * column,
-    		y: this.height - (this.height / this.bounds.y * value)
-    	};
-    };
-
-
-    var exampleLineGraph = new LineChart(300, 200, {
-    	consumptionSpeed: {
-    		colour: '#FF0000',
-    		values: [
-    			0, 0, 0, 0, 0,
-    			0, 0, 0, 0.1, 0.3,
-    			0.8, 1, 3, 8, 16, 32
-    		]
-    	},
-    	temperature: {
-    		colour: '#0000FF',
-    		values: [
-    			80, 80, 80, 80, 80,
-    			79, 78, 76, 72, 60,
-    			55, 54, 40, 10, 10, 40
-    		]
-    	}
-    });
-
-    var exampleLineGraphCanvas = exampleLineGraph.getCanvas();
-    console.log(exampleLineGraphCanvas);
-    document.body.appendChild(exampleLineGraphCanvas);
-    exampleLineGraph.renderChart();
 
 
   });
+
+  var c = canvas2.getContext('2d');
+
+  c.lineWidth = 2;
+  c.strokeStyle = '#333';
+  c.font = 'italic 8pt sans-serif';
+  c.textAlign = "center";
+
 });

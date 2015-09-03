@@ -1,3 +1,8 @@
 #chartCanvas {
     margin: 0 auto;
+    margin-top: 100px;
+}
+
+.col-md-4 h5 {
+  display: none;
 }
